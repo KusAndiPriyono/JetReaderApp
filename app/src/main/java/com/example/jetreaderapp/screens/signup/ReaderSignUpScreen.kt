@@ -38,10 +38,14 @@ import com.example.jetreaderapp.components.login.SubmitButton
 import com.example.jetreaderapp.components.signup.FirstNameInput
 import com.example.jetreaderapp.components.signup.ImageSignUp
 import com.example.jetreaderapp.components.signup.LastNameInput
+import com.example.jetreaderapp.navigation.ReaderScreens
 import com.example.jetreaderapp.ui.theme.Purple40
 
 @Composable
-fun ReaderSignUpScreen(navController: NavController) {
+fun ReaderSignUpScreen(
+    navController: NavController,
+    viewModel: SignUpScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+) {
 
     Surface() {
         Column(
@@ -53,7 +57,9 @@ fun ReaderSignUpScreen(navController: NavController) {
             UserForm(
                 loading = false,
                 onDone = { firstName, lastName, email, password ->
-
+                    viewModel.createAccount(firstName, lastName, email, password) {
+                        navController.navigate(ReaderScreens.LoginScreen.name)
+                    }
                 }
             )
             Spacer(modifier = Modifier.height(5.dp))
@@ -68,7 +74,7 @@ fun ReaderSignUpScreen(navController: NavController) {
                     text,
                     modifier = Modifier
                         .clickable {
-                            navController.navigate("LoginScreen")
+                            navController.navigate(ReaderScreens.LoginScreen.name)
                         }
                         .padding(start = 5.dp),
                     fontWeight = FontWeight.Bold,
