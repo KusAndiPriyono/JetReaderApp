@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">JetReaderApp</string>
+
+    <string name="title_splash">Jet Reader App</string>
+    <string name="title_copyright">Powered by Freedom_KAP @2023</string>
+    <string name="create_account">Please enter a valid email and password that is at last 6 characters</string>
+
+</resources>
