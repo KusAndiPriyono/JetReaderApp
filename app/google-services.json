@@ -12,7 +12,20 @@
           "package_name": "com.example.jetreaderapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "29359445206-1ji33rs2kvk0of6u2kbmk7g3c7bl47e4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jetreaderapp",
+            "certificate_hash": "8f188917fd6c0a4a0df5ddb390daad3f237da480"
+          }
+        },
+        {
+          "client_id": "29359445206-ld75tat6nea3saeafpvitrv2bgr2rmli.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCTSMPfXfwLxWztXHoP-k7u69rlptVCaC0"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "29359445206-ld75tat6nea3saeafpvitrv2bgr2rmli.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

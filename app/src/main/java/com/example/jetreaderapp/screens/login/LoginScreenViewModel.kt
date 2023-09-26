@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
@@ -22,14 +24,32 @@ class LoginScreenViewModel : ViewModel() {
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Log.d("FB", "signInWithEmailAndPassword: ${task.result}")
+                            Log.d(TAG, "signInWithEmailAndPassword: ${task.result}")
                             home()
                         } else {
-                            Log.d("FB", "signInWithEmailAndPassword: ${task.result}")
+                            Log.d(TAG, "signInWithEmailAndPassword: ${task.result}")
                         }
                     }
             } catch (e: Exception) {
-                Log.d("FB", "signInWithEmailAndPassword: ${e.message}")
+                Log.d(TAG, "signInWithEmailAndPassword: ${e.message}")
             }
         }
+
+    fun firebaseAuthWithGoogle(idToken: String, home: () -> Unit) {
+        val credential: AuthCredential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "signInWithCredential: ${task.result}")
+                    home()
+                } else {
+                    Log.d(TAG, "signInWithCredential: ${task.result}")
+                }
+            }
+    }
+
+
+    companion object {
+        private const val TAG = "Login"
+    }
 }
