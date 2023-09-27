@@ -10,4 +10,12 @@ interface AuthRepository {
         firstName: String,
         lastName: String, email: String, password: String
     ): Flow<Resource<AuthResult>>
+
+    suspend fun saveUserData(
+        userId: String,
+        firstName: String,
+        lastName: String,
+        email: String,
+        password: String
+    ): Flow<Resource<Unit>>
 }

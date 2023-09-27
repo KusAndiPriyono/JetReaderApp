@@ -17,11 +17,12 @@ class LoginScreenViewModel @Inject constructor(
     val _loginState = Channel<LoginState>()
     val loginState = _loginState.receiveAsFlow()
 
-    fun loginUser(email: String, password: String) = viewModelScope.launch {
+    fun loginUser(email: String, password: String, home: () -> Unit) = viewModelScope.launch {
         repository.loginUser(email, password).collect { result ->
             when (result) {
                 is Resource.Success -> {
                     _loginState.send(LoginState(isSuccess = "Login Successful"))
+                    home()
                 }
 
                 is Resource.Loading -> {
