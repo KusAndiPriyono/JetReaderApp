@@ -31,6 +31,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.jetreaderapp.components.login.EmailInput
 import com.example.jetreaderapp.components.login.PasswordInput
@@ -44,7 +45,7 @@ import com.example.jetreaderapp.ui.theme.Purple40
 @Composable
 fun ReaderSignUpScreen(
     navController: NavController,
-    viewModel: SignUpScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: SignUpScreenViewModel = hiltViewModel()
 ) {
 
     Surface() {
@@ -57,9 +58,7 @@ fun ReaderSignUpScreen(
             UserForm(
                 loading = false,
                 onDone = { firstName, lastName, email, password ->
-                    viewModel.createAccount(firstName, lastName, email, password) {
-                        navController.navigate(ReaderScreens.LoginScreen.name)
-                    }
+
                 }
             )
             Spacer(modifier = Modifier.height(5.dp))
