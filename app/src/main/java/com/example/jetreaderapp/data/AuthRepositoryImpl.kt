@@ -2,6 +2,7 @@ package com.example.jetreaderapp.data
 
 import android.util.Log
 import com.example.jetreaderapp.utils.Resource
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -14,8 +15,8 @@ import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val fireStore: FirebaseFirestore
-) : AuthRepository {
+    private val fireStore: FirebaseFirestore,
+    ) : AuthRepository {
     override fun loginUser(email: String, password: String): Flow<Resource<AuthResult>> {
         return flow {
             emit(Resource.Loading())
@@ -60,6 +61,16 @@ class AuthRepositoryImpl @Inject constructor(
                 Log.d("FB", "createAccount: ${e.message}")
                 emit(Resource.Error(e.message.toString()))
             }
+        }.catch {
+            emit(Resource.Error(it.message.toString()))
+        }
+    }
+
+    override fun googleLogin(credential: AuthCredential): Flow<Resource<AuthResult>> {
+        return flow {
+            emit(Resource.Loading())
+            val result = firebaseAuth.signInWithCredential(credential).await()
+            emit(Resource.Success(result))
         }.catch {
             emit(Resource.Error(it.message.toString()))
         }
